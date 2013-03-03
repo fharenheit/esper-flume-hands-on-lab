@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.openflamingo.bigdata.realtime</groupId>
+    <artifactId>esper-flume-hands-on-lab</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Esper CEP and Flume NG Hands On Lab</name>
+    <description>Esper CEP and Flume NG Hands On Lab</description>
+    <url>http://www.openflamingo.org</url>
+    <inceptionYear>2011</inceptionYear>
+
+    <properties>
+        <!-- Project -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <output.encoding>UTF-8</output.encoding>
+        <javadoc.locale>ko_KR</javadoc.locale>
+
+        <!-- Dependencies -->
+        <slf4j.version>1.7.2</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <commons.logging.version>1.1.1</commons.logging.version>
+        <httpclient.version>4.2.3</httpclient.version>
+        <esper.version>4.8.0</esper.version>
+        <junit.version>4.11</junit.version>
+        <cglib.version>2.2</cglib.version>
+        <antlr.version>3.2</antlr.version>
+        <twitter4j.version>3.0.3</twitter4j.version>
+        <infinispan.version>5.2.1.Final</infinispan.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <!--
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass></mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                -->
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <!--
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.google.guava</groupId>
+                                    <artifactId>guava</artifactId>
+                                    <version>${guava.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <!-- =========== -->
+        <!--  Esper CEP  -->
+        <!-- =========== -->
+
+        <dependency>
+            <groupId>com.espertech.esper</groupId>
+            <artifactId>esper</artifactId>
+            <version>${esper.version}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/esper-4.8.0.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.espertech.esper</groupId>
+            <artifactId>esperio-csv</artifactId>
+            <version>${esper.version}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/esperio-csv-4.8.0.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.espertech.esper</groupId>
+            <artifactId>esperio-db</artifactId>
+            <version>${esper.version}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/esperio-db-4.8.0.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.espertech.esper</groupId>
+            <artifactId>esperio-http</artifactId>
+            <version>${esper.version}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/esperio-http-4.8.0.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.espertech.esper</groupId>
+            <artifactId>esperio-socket</artifactId>
+            <version>${esper.version}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/esperio-socket-4.8.0.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore-nio</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${cglib.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr-runtime</artifactId>
+            <version>${antlr.version}</version>
+        </dependency>
+
+        <!-- =============== -->
+        <!--  Twitter4J API  -->
+        <!-- =============== -->
+
+        <dependency>
+            <groupId>org.twitter4j</groupId>
+            <artifactId>twitter4j-core</artifactId>
+            <version>${twitter4j.version}</version>
+        </dependency>
+
+        <dependency>
+        	<groupId>org.twitter4j</groupId>
+        	<artifactId>twitter4j-async</artifactId>
+            <version>${twitter4j.version}</version>
+        </dependency>
+
+        <dependency>
+        	<groupId>org.twitter4j</groupId>
+        	<artifactId>twitter4j-stream</artifactId>
+            <version>${twitter4j.version}</version>
+        </dependency>
+
+        <!-- ================ -->
+        <!--  Infinispan API  -->
+        <!-- ================ -->
+
+        <dependency>
+        	<groupId>org.infinispan</groupId>
+        	<artifactId>infinispan-client-hotrod</artifactId>
+            <version>${infinispan.version}</version>
+        </dependency>
+
+        <!-- ============= -->
+        <!--  Logging API  -->
+        <!-- ============= -->
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons.logging.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- ======= -->
+        <!--  JUnit  -->
+        <!-- ======= -->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <inputEncoding>${output.encoding}</inputEncoding>
+                    <outputEncoding>${output.encoding}</outputEncoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/findbugs</outputDirectory>
+                    <xmlOutput>true</xmlOutput>
+                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                    <xmlOutputDirectory>target/findbugs</xmlOutputDirectory>
+                    <failOnError>false</failOnError>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>2.7.1</version>
+                <configuration>
+                    <linkXref>true</linkXref>
+                    <sourceEncoding>${output.encoding}</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>1.6</targetJdk>
+                    <excludes>
+                        <exclude>org/openflamingo/**/*.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <tags>
+                        <tag>TODO</tag>
+                        <tag>FIXME</tag>
+                        <tag>@todo</tag>
+                        <tag>@deprecated</tag>
+                    </tags>
+                </configuration>
+            </plugin>
+            <!-- Sonar Server required
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>2.0</version>
+            </plugin>
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+                <version>2.0-beta-2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <scm>
+        <connection>scm:git:https://github.com/fharenheit/template-mapreduce.git</connection>
+        <developerConnection>scm:git:https://github.com/fharenheit/template-mapreduce.git</developerConnection>
+        <url>https://github.com/fharenheit/template-mapreduce</url>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>release</id>
+            <name>Release Repository</name>
+            <url>http://nexus.openflamingo.org/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshot</id>
+            <name>Snapshot Repository</name>
+            <url>http://nexus.openflamingo.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/fharenheit/template-mapreduce/issues</url>
+    </issueManagement>
+
+    <organization>
+        <name>Cloudine</name>
+        <url>http://www.openflamingo.org</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>fharenheit</id>
+            <name>Edward KIM</name>
+            <roles>
+                <role>Manager</role>
+                <role>Commiter</role>
+            </roles>
+            <url>http://www.facebook.com/JBossUserGroup</url>
+            <email>fharenheit@openflamingo.org</email>
+        </developer>
+    </developers>
+</project>
