@@ -38,7 +38,6 @@ public class TwitterStatusListener extends StatusAdapter {
         // 위치 정보가 있다면 CEP 엔진으로 전달한다.
         String country = status.getPlace().getCountry();
         if (country != null && !country.trim().equals("")) {
-            logger.info(status.getPlace().getCountry());
             esperCEPEngine.getEpService().getEPRuntime().sendEvent(status.getPlace());
         }
     }
