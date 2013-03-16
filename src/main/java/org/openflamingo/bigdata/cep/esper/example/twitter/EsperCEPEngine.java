@@ -24,7 +24,7 @@ public class EsperCEPEngine {
         configuration.addEventType("Place", Place.class.getName());
 
         epService = EPServiceProviderManager.getDefaultProvider();
-        String expression = "select country, count(country) from twitter4j.Place.win:time(10 sec)";
+        String expression = "select country, count(distinct country) from twitter4j.Place.win:time(30 sec)";
         statement = epService.getEPAdministrator().createEPL(expression);
 
         EsperUpdateListener listener = new EsperUpdateListener();

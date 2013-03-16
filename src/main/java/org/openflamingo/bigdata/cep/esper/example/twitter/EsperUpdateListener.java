@@ -20,7 +20,7 @@ public class EsperUpdateListener implements UpdateListener {
     @Override
     public void update(EventBean[] newEvent, EventBean[] oldEvent) {
         for (EventBean eventBean : newEvent) {
-            System.out.println(eventBean.get("count(country)") + " :: Country Count :: " + eventBean.get("count(country)"));
+            System.out.println("Country Count :: " + eventBean.get("count(distinct country)") + "\t\t" + eventBean.get("country"));
         }
     }
 
