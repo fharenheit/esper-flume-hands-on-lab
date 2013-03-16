@@ -35,14 +35,11 @@ public class TwitterStatusListener extends StatusAdapter {
 
     @Override
     public void onStatus(Status status) {
-        User user = status.getUser();
-
         // 위치 정보가 있다면 CEP 엔진으로 전달한다.
-        String location = user.getLocation();
-        if (location != null && !location.trim().equals("")) {
-            esperCEPEngine.getEpService().getEPRuntime().sendEvent(user);
-            // logger.info("@@" + location);
+        String country = status.getPlace().getCountry();
+        if (country != null && !country.trim().equals("")) {
+            logger.info(status.getPlace().getCountry());
+            esperCEPEngine.getEpService().getEPRuntime().sendEvent(status.getPlace());
         }
     }
-
 }
