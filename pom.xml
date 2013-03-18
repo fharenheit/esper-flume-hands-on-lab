@@ -6,7 +6,7 @@
     <groupId>org.openflamingo.bigdata.realtime</groupId>
     <artifactId>esper-flume-hands-on-lab</artifactId>
     <version>0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>Esper CEP and Flume NG Hands On Lab</name>
     <description>Esper CEP and Flume NG Hands On Lab</description>
     <url>http://www.openflamingo.org</url>

@@ -21,3 +21,13 @@ Flamingo Community의 Realtime Big Data 실습 템플릿
 ```text
 #mvn package
 ```
+## 참고
+
+* Redis for Windows
+  * https://github.com/dmajkic/redis/downloads
+* Highchart
+  * http://www.highcharts.com/downloads/zips/Highcharts-2.3.5.zip
+* D3
+  * http://d3js.org/d3.v3.zip
+* Node.js
+  *
