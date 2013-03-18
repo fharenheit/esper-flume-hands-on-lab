@@ -4,7 +4,7 @@ import com.espertech.esper.client.Configuration;
 import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
-import twitter4j.User;
+import twitter4j.Place;
 
 /**
  * Esper CEP Engine.
@@ -21,10 +21,10 @@ public class EsperCEPEngine {
     public void start() {
         // Twitter의 사용자 정보를 이벤트로 추가한다.
         Configuration configuration = new Configuration();
-        configuration.addEventType("User", User.class.getName());
+        configuration.addEventType("Place", Place.class.getName());
 
         epService = EPServiceProviderManager.getDefaultProvider();
-        String expression = "select count(location) from twitter4j.User.win:time(10 sec) as user";
+        String expression = "select country, count(distinct country) from twitter4j.Place.win:time(30 sec)";
         statement = epService.getEPAdministrator().createEPL(expression);
 
         EsperUpdateListener listener = new EsperUpdateListener();
